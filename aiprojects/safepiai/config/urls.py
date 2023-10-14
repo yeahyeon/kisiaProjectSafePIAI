@@ -23,8 +23,6 @@ urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('', views.upload_file, name='upload_file'),
                   path('images/', views.image_list, name='image_list'),
-                  path('download/<int:pk>/', views.download_image, name='download_image'),
-                  path('delete/<int:pk>/', views.delete_image, name='delete_image'),
                   path('download_and_delete_image/<int:pk>/', views.download_and_delete_image,
                        name='download_and_delete_image'),
 
