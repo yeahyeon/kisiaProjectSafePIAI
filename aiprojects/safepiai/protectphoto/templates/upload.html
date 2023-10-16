@@ -63,41 +63,19 @@
             </div>
         </div>
 
-        <!-- 버튼의 문구가 기본 서식대로 나오는 코드
-        <form method="post" enctype="multipart/form-data">
-            <div class="text-center">
-                {% csrf_token %}
-                <input class="btn btn-outline-primary my-2" type="file" name="image" value="Choose Image">
-                <button type="submit" class="btn btn-outline-primary">Do SafePI</button>
-            </div>
-        </form>
-        -->
-
-        <!-- 선택된 이미지 리스트가 안보이는 코드
-        <form method="post" enctype="multipart/form-data">
-            <div class="text-center">
-            {% csrf_token %}
-            <label for="image" class="btn btn-outline-primary my-2">
-                Choose Image
-                <input type="file" name="image" id="image" style="display: none;">
-            </label>
-            <button type="submit" class="btn btn-outline-primary">Do SafePI</button>
-            </div>
-        </form>
-        -->
-
         <form method="post" enctype="multipart/form-data">
             <div class="text-center">
             {% csrf_token %}
             <label for="image" class="btn btn-outline-primary my-2">
                 <span id="chooseImageText">Choose Image</span>
-                <input type="file" name="image" id="image" style="display: none;" onchange="displayFileName(this)">
+                <input type="file" name="image" id="image" style="display: none;" onchange="displayFileName(this)" multiple>
             </label>
             <span id="noImageChosenText"></span>
             <button type="submit" class="btn btn-outline-primary">Do SafePI</button>
             </div>
         </form>
 
+        <!--
         <script>
             function displayFileName(input) {
                 var chooseImageText = document.getElementById('chooseImageText');
@@ -111,6 +89,27 @@
                     chooseImageText.innerText = 'Choose Image';
                     noImageChosenText.style.display = 'inline';
                 }
+            }
+        </script>
+        -->
+
+        <script>
+            function displayFileName(input) {
+                var chooseImageText = document.getElementById('chooseImageText');
+                var noImageChosenText = document.getElementById('noImageChosenText');
+
+            if (input.files && input.files.length > 0) {
+                var filenames = [];
+                for (var i = 0; i < input.files.length; i++) {
+                    filenames.push(input.files[i].name);
+                }
+                chooseImageText.innerText = filenames.join(',\n ');
+                noImageChosenText.style.display = 'none';
+            }
+            else {
+                chooseImageText.innerText = 'Choose Image';
+                noImageChosenText.style.display = 'inline';
+            }
             }
         </script>
 
