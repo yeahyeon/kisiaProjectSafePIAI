@@ -18,12 +18,12 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from protectphoto import views
+from django.views.generic import RedirectView
 
 urlpatterns = [
-                  path('admin/', admin.site.urls),
-                  path('', views.upload_file, name='upload_file'),
-                  path('images/', views.image_list, name='image_list'),
-                  path('download_and_delete_image/<int:pk>/', views.download_and_delete_image,
-                       name='download_and_delete_image'),
-
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('admin/', admin.site.urls),
+    path('upload_file/', views.upload_file, name='upload_file'),
+    path('images/', views.image_list, name='image_list'),
+    path('download_and_delete_image/<int:pk>/', views.download_and_delete_image, name='download_and_delete_image'),
+    path('', RedirectView.as_view(url='upload_file/')),  # Redirecting the main URL to the upload_file view
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
